@@ -6,11 +6,13 @@ adds a palette animation that is six loops long, so the colors switch exactly
 when the snake starts over. It can also pin a small accessory of each
 character to the snake: the accessory reuses the keyframes of a snake segment
 so it follows it, and it is only visible during its character's loop.
+The order of the characters is shuffled every time the script runs.
 
 Usage: python snake_chars.py <dir with snake.svg and snake-dark.svg>
 """
 
 import math
+import random
 import re
 import sys
 from pathlib import Path
@@ -210,8 +212,18 @@ def convert(source, target, accessories):
     print(f"{target.name}: {loop_ms} ms per loop, {len(svg)} bytes")
 
 
+def shuffle_order():
+    """Pick a new random order for the characters (and their accessories)."""
+    order = list(range(len(CHARACTERS)))
+    random.shuffle(order)
+    CHARACTERS[:] = [CHARACTERS[i] for i in order]
+    ACCESSORIES[:] = [ACCESSORIES[i] for i in order]
+    print("order:", ", ".join(name for name, _, _ in CHARACTERS))
+
+
 def main():
     folder = Path(sys.argv[1])
+    shuffle_order()
     for base, light in (("snake", ""), ("snake-dark", "-dark")):
         source = folder / f"{base}.svg"
         convert(source, folder / f"snake-chars{light}.svg", False)
