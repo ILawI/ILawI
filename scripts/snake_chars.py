@@ -2,8 +2,8 @@
 
 The snk SVG is colored through CSS variables on :root (--cs for the snake,
 --c1..--c4 for the contribution squares) and loops every N ms. This script
-adds a palette animation that is six loops long, so the colors (and a small
-name label) switch exactly when the snake starts over.
+adds a palette animation that is six loops long, so the colors switch exactly
+when the snake starts over.
 
 Usage: python snake_chars.py <dir with snake.svg and snake-dark.svg>
 """
@@ -45,32 +45,7 @@ def build_css(loop_ms):
         )
     css = [f"@keyframes pal{{{''.join(frames)}}}"]
     css.append(f":root{{animation:pal {total_ms}ms linear infinite}}")
-    css.append(
-        ".nm{font:600 12px ui-sans-serif,system-ui,-apple-system,Segoe UI,"
-        "Helvetica,Arial,sans-serif;fill:var(--cs);opacity:0;"
-        f"animation:none {total_ms}ms linear infinite}}"
-    )
-    for i in range(count):
-        start = i * step
-        end = (i + 1) * step - EPS
-        keys = []
-        if i == 0:
-            keys.append("0%{opacity:1}")
-        else:
-            keys.append(f"0%,{pct(start - EPS)}{{opacity:0}}")
-            keys.append(f"{pct(start)}{{opacity:1}}")
-        keys.append(f"{pct(end)}{{opacity:1}}")
-        keys.append(f"{pct(end + EPS)},100%{{opacity:0}}")
-        css.append(f"@keyframes n{i}{{{''.join(keys)}}}")
-        css.append(f".nm.n{i}{{animation-name:n{i}}}")
     return "".join(css)
-
-
-def build_labels():
-    return "".join(
-        f'<text class="nm n{i}" x="0" y="-14">{name}</text>'
-        for i, (name, _, _) in enumerate(CHARACTERS)
-    )
 
 
 def convert(source, target):
@@ -82,7 +57,6 @@ def convert(source, target):
     if "</style>" not in svg or not svg.rstrip().endswith("</svg>"):
         raise SystemExit(f"{source}: unexpected structure")
     svg = svg.replace("</style>", build_css(loop_ms) + "</style>", 1)
-    svg = svg.rstrip()[: -len("</svg>")] + build_labels() + "</svg>"
     minidom.parseString(svg.encode("utf-8"))
     target.write_text(svg, encoding="utf-8")
     print(f"{target.name}: {loop_ms} ms per loop, {len(svg)} bytes")
