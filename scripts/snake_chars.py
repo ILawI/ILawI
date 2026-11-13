@@ -38,16 +38,28 @@ def pct(value):
 
 
 def flower():
-    petals = []
-    for k in range(5):
-        angle = math.radians(-90 + 72 * k)
-        cx = 8 + 2.7 * math.cos(angle)
-        cy = 8 + 2.7 * math.sin(angle)
-        petals.append(
-            f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="2.3" fill="#ffffff" '
-            f'stroke="{OUTLINE}" stroke-width=".5"/>'
+    """A small blue rose: ring of outer petals, inner petals, dark center."""
+    ink = "#0a2433"
+    shapes = []
+    for k in range(6):
+        angle = math.radians(-90 + 60 * k)
+        shapes.append(
+            f'<circle cx="{8 + 4.3 * math.cos(angle):.2f}" '
+            f'cy="{8 + 4.3 * math.sin(angle):.2f}" r="3" fill="#0b6a96" '
+            f'stroke="{ink}" stroke-width=".55"/>'
         )
-    return "".join(petals) + '<circle cx="8" cy="8" r="1.7" fill="#ffd43b"/>'
+    for k in range(4):
+        angle = math.radians(-45 + 90 * k)
+        shapes.append(
+            f'<circle cx="{8 + 2.1 * math.cos(angle):.2f}" '
+            f'cy="{8 + 2.1 * math.sin(angle):.2f}" r="2.3" fill="#1486b9" '
+            f'stroke="{ink}" stroke-width=".5"/>'
+        )
+    shapes.append(
+        f'<circle cx="8" cy="8" r="1.5" fill="#0a4f73" stroke="{ink}" '
+        'stroke-width=".5"/>'
+    )
+    return "".join(shapes)
 
 
 def twin_tails(color, tie):
@@ -79,15 +91,27 @@ def fluffy_hat():
 
 
 def sword():
+    """Law's Kikoku: black sheath with white crosses, red cord, white guard,
+    cream handle. Drawn horizontally, then rotated onto the diagonal."""
+    crosses = "".join(
+        f'<path d="M{x} 0.2v2.2M{x - 1.1} 1.3h2.2" stroke="#ffffff" '
+        'stroke-width=".7"/>'
+        for x in (3.5, 8, 12.5, 17, 21.5)
+    )
     return (
-        '<line x1="-8" y1="21" x2="23" y2="-10" stroke="#6b7280" '
-        'stroke-width="2.6" stroke-linecap="round"/>'
-        '<line x1="-8" y1="21" x2="23" y2="-10" stroke="#eef2f7" '
-        'stroke-width="1.2" stroke-linecap="round"/>'
-        '<line x1="-8" y1="21" x2="-3.5" y2="16.5" stroke="#22252b" '
-        'stroke-width="2.8" stroke-linecap="round"/>'
-        '<line x1="-5.3" y1="14.8" x2="-1.7" y2="18.4" stroke="#ffd23f" '
-        'stroke-width="1.4" stroke-linecap="round"/>'
+        '<g transform="translate(-8 21) rotate(-45)">'
+        '<rect x="0" y="-1.8" width="26" height="3.6" rx="1.2" fill="#14141c" '
+        'stroke="#6b7280" stroke-width=".5"/>'
+        '<g transform="translate(0 -1.3)">' + crosses + "</g>"
+        '<path d="M19 -1.8 L18 4.2 M20 -1.8 L20.4 3.6" stroke="#d62828" '
+        'stroke-width="1.1" stroke-linecap="round"/>'
+        '<ellipse cx="27.4" cy="0" rx="2.2" ry="2.6" fill="#ffffff" '
+        'stroke="#6b7280" stroke-width=".5"/>'
+        '<rect x="29" y="-1.3" width="10" height="2.6" rx="1" fill="#e8d9a8" '
+        'stroke="#6b7280" stroke-width=".5"/>'
+        '<path d="M31 -1.3l1.4 2.6M33.6 -1.3l1.4 2.6M36.2 -1.3l1.4 2.6" '
+        'stroke="#c8641e" stroke-width=".8"/>'
+        "</g>"
     )
 
 
