@@ -7,6 +7,6 @@ Most of my work lives in private repositories.
 <br>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ILawI/ILawI/output/snake-dark.svg" />
-  <img alt="Contribution graph" src="https://raw.githubusercontent.com/ILawI/ILawI/output/snake.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ILawI/ILawI/output/snake-chars-dark.svg" />
+  <img alt="Contribution graph" src="https://raw.githubusercontent.com/ILawI/ILawI/output/snake-chars.svg" />
 </picture>
