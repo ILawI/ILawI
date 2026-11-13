@@ -14,12 +14,17 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
             dist/snake.svg?color_snake=#7c3aed
             dist/snake-dark.svg?palette=github-dark&color_snake=#a78bfa
+
+      - name: Add the character palette animation
+        run: python3 scripts/snake_chars.py dist
 
       - uses: crazy-max/ghaction-github-pages@v4
         with:
