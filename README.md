@@ -1,7 +1,3 @@
-<p align="center">
-  <img alt="LS Corporation" src="https://raw.githubusercontent.com/ILawI/ILawI/main/assets/banner.png" width="100%" />
-</p>
-
 Software Engineering and ADS student. Co-founder of [MAVIX Studio](https://github.com/Mavix-Studio), where we build games on Roblox.
 
 Most of my work lives in private repositories.
